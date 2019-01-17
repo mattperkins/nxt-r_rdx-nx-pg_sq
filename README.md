@@ -13,7 +13,7 @@
 # DEPLOY <- 
 ## yarn export // generates an out directory
 ## $ cd out
-## ssh/sftp -r *
+## sftp put -r *
 
 # Serve
 ## yarn start
