@@ -21,3 +21,7 @@
 # Serve
 ## yarn start
 
+
+### Database
+#### sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string,password:string
+#### sequelize db:migrate
