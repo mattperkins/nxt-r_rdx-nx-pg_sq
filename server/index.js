@@ -11,9 +11,10 @@ const app = next({
   dir: "./app", dev
 })
 const handle = app.getRequestHandler()
-
 const getRoutes = require("./routes")
 const routes = getRoutes()
+
+const models = require("./db/model")
 
 app.prepare().then(() => {
   const server = express()
@@ -39,10 +40,14 @@ app.prepare().then(() => {
     }
     handle(req, res)
   })
-  server.listen(PORT, err => {
-    if (err) throw err
-    console.log("> Server running on:", PORT)
+
+  models.sequelize.sync().then(function () {
+    server.listen(PORT, err => {
+      if (err) throw err
+      console.log("> Server running on:", PORT)
+    })
   })
+
 }).catch(err => {
   console.error(err)
   process.exit(1)
