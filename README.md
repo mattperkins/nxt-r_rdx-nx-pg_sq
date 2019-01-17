@@ -1,5 +1,6 @@
 # INSTALL 
 ## yarn 
+## sequelize init
 
 # RUN 
 ## yarn dev 
