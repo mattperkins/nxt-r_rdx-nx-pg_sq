@@ -25,3 +25,13 @@
 ### Database
 #### sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string,password:string
 #### sequelize db:migrate
+
+### Signup POST request 
+```
+{
+	"firstName": "Fred",
+	"lastName": "Bloggs",
+	"email": "fred@email.com",
+	"password": "********"
+}
+```
