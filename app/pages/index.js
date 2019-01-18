@@ -1,10 +1,8 @@
 import Page from '../layouts/page'
-import { DatePicker } from 'antd'
 
 const Index = (props) => (
   <Page>
-    <h1>hello,world</h1>
-    <DatePicker />
+    <h1>/</h1>
   </Page>
 )
 
