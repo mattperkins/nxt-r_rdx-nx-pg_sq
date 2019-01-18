@@ -13,6 +13,7 @@ const app = next({
 const handle = app.getRequestHandler()
 const getRoutes = require("./routes")
 const routes = getRoutes()
+const AppRouter = require("./routes/AppRouter")
 
 const models = require("./db/model")
 
@@ -28,6 +29,8 @@ app.prepare().then(() => {
   )
   server.use(bodyParser.urlencoded({ extended: true }))
   server.use(bodyParser.json())
+
+  server.use(AppRouter)
 
   server.get("*", (req, res) => {
     const parsedUrl = parse(req.url, true)
