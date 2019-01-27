@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-const Page = ({ children }) => (
+const Page = ({ style, children }) => (
   <>
-    <main>
+    <main style={style}>
       {children}
     </main>
   </>
