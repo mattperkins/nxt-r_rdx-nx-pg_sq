@@ -1,9 +1,17 @@
 import Page from '../layouts/page'
+import AuthForm from '../components/AuthForm';
 
 const Signin = (props) => (
-  <Page>
-    <h1>/signin</h1>
+  <Page style={centerCenter}>
+    <AuthForm />
   </Page>
 )
 
+const centerCenter = {
+  display: "flex",
+  height: "100vh",
+  justifyContent: "center",
+  alignItems: "center",
+  marginTop: -40
+}
 export default Signin
