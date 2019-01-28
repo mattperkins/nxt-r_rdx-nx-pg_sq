@@ -1,9 +1,12 @@
 import Page from '../layouts/page'
 import AuthForm from '../components/AuthForm';
 
+export const LOGIN = "login"
+export const REGISTER = "register"
+
 const Signin = (props) => (
   <Page style={centerCenter}>
-    <AuthForm />
+    <AuthForm view={LOGIN} />
   </Page>
 )
 
