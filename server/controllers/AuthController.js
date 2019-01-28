@@ -30,6 +30,8 @@ class AuthController {
         email,
         password
       }).then(user => {
+        // TBD: transformable payload
+        delete user.password
         res.json(user)
       })
     })
