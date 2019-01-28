@@ -1,21 +1,66 @@
 import Page from "../layouts/page"
 import { Form, Input, Button } from "antd"
 import "isomorphic-unfetch"
+import { LOGIN, REGISTER } from "../pages/signin";
 
+// Additional Registration Form Fields
+const RegisterFields = props => (
+  <>
+    <Form.Item>
+      {props.getFieldDecorator("firstName", {
+        rules: [
+          {
+            required: true,
+            message: "Please enter your first name"
+          }
+        ]
+      })(<Input name="firstName" placeholder="First Name" />
+      )}
+    </Form.Item>
+
+    <Form.Item>
+      {props.getFieldDecorator("lastName", {
+        rules: [
+          {
+            required: true,
+            message: "Please enter your last name"
+          }
+        ]
+      })(<Input name="lastName" placeholder="Last Name" />
+      )}
+    </Form.Item>
+  </>
+)
+
+// Component
 class AuthForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       email: "",
       password: "",
-      loginError: false
+      loginError: false,
+      success: false
     }
+    this.view = {
+      login: {
+        path: "/signin",
+        name: "Login"
+      },
+      register: {
+        path: "/signup",
+        name: "Register"
+      }
+    }
+    // LOGIN === imported variables from pages/signin.js
+    if (this.props.view === LOGIN) this.vManager = this.view.login
+    else this.vManager = this.view.register
   }
   handleSubmit = e => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       // console.log(values)
-      fetch("/signin", {
+      fetch(this.vManager.path, {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -34,6 +79,8 @@ class AuthForm extends React.Component {
         if (data.token) {
           localStorage.setItem("fockeyToken", data.token)
         }
+        // login/registered successful
+        this.setState({ success: true })
       }).catch(err => {
         if (err) this.setState({
           loginError: true
@@ -46,9 +93,16 @@ class AuthForm extends React.Component {
     const { getFieldDecorator } = this.props.form
     return (
       <Form layout="inline" onSubmit={this.handleSubmit}>
-        {/*  */}
+
         {this.state.loginError && <h1>LOGIN ERROR!</h1>}
-        {/*  */}
+        {this.state.success && (
+          <p>{this.vManager.name} successful!</p>
+        )}
+        {/* Inserts additional form fields if@ register route path */}
+        {this.props.view === REGISTER && (
+          <RegisterFields getFieldDecorator={getFieldDecorator} />
+        )}
+
         <Form.Item>
           {
             getFieldDecorator("email", {
@@ -74,7 +128,7 @@ class AuthForm extends React.Component {
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Login
+            {this.vManager.name}
           </Button>
         </Form.Item>
       </Form>
